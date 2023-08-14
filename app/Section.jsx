@@ -12,7 +12,9 @@ export default function Section({
 	bgSecondary,
 	num,
 }) {
-	const pos = document.documentElement;
+	// const pos = document.documentElement;
+	const pos = window.document.documentElement;
+	const windowRef = window;
 
 	const containerRef = useRef(null);
 	const [offsetTop, setOffsetTop] = useState(0);
@@ -37,11 +39,11 @@ export default function Section({
 		if (containerRef.current) {
 			handleResize();
 			pos.addEventListener('mousemove', handleMouseMove);
-			window.addEventListener('resize', handleResize);
+			windowRef.addEventListener('resize', handleResize);
 
 			return function cleanupListener() {
 				pos.removeEventListener('mousemove', handleMouseMove);
-				window.removeEventListener('resize', handleResize);
+				windowRef.removeEventListener('resize', handleResize);
 			};
 		}
 	}, [containerRef, offsetTop, offsetLeft, scrollPosition]);
