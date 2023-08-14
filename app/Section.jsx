@@ -12,30 +12,27 @@ export default function Section({
 	bgSecondary,
 	num,
 }) {
-	// const pos = document.documentElement;
-	const pos = window.document.documentElement;
-	const windowRef = window;
-
 	const containerRef = useRef(null);
 	const [offsetTop, setOffsetTop] = useState(0);
 	const [offsetLeft, setOffsetLeft] = useState(0);
 
-	const handleResize = () => {
-		setOffsetTop(containerRef.current.offsetTop);
-		setOffsetLeft(containerRef.current.offsetLeft);
-	};
-
-	const handleMouseMove = (e) => {
-		pos.style.setProperty(`--x${num}`, e.clientX - offsetLeft + 'px');
-		pos.style.setProperty(
-			`--y${num}`,
-			e.clientY - offsetTop + scrollPosition + 'px'
-		);
-	};
-
 	const scrollPosition = useScrollPosition();
 
 	useEffect(() => {
+		const pos = window.document.documentElement;
+		const windowRef = window;
+		const handleResize = () => {
+			setOffsetTop(containerRef.current.offsetTop);
+			setOffsetLeft(containerRef.current.offsetLeft);
+		};
+
+		const handleMouseMove = (e) => {
+			pos.style.setProperty(`--x${num}`, e.clientX - offsetLeft + 'px');
+			pos.style.setProperty(
+				`--y${num}`,
+				e.clientY - offsetTop + scrollPosition + 'px'
+			);
+		};
 		if (containerRef.current) {
 			handleResize();
 			pos.addEventListener('mousemove', handleMouseMove);
