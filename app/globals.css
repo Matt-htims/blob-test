@@ -2,26 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.circle1 {
+	clip-path: circle(150px at var(--x1) var(--y1));
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.circle2 {
+	clip-path: circle(150px at var(--x2) var(--y2));
 }
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.circle3 {
+	clip-path: circle(150px at var(--x3) var(--y3));
+}
+.circle4 {
+	clip-path: circle(150px at var(--x4) var(--y4));
+}
+.circle5 {
+	clip-path: circle(150px at var(--x5) var(--y5));
+}
+.circle6 {
+	clip-path: circle(150px at var(--x6) var(--y6));
+}
+.circle7 {
+	clip-path: circle(150px at var(--x7) var(--y7));
+}
+.circle8 {
+	clip-path: circle(150px at var(--x8) var(--y8));
+}
+.circle9 {
+	clip-path: circle(150px at var(--x9) var(--y9));
+}
+.circle10 {
+	clip-path: circle(150px at var(--x10) var(--y10));
 }
