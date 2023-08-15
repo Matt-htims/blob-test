@@ -73,7 +73,7 @@ export default function BlobCardListener({
 			<p className="text-2xl">{body}</p>
 			<div
 				className={`circle${num} aria-hidden absolute top-0 left-0 right-0 bottom-0 rounded-2xl p-20 pointer-events-none duration-[350ms] ease-out ${textColorSecondary} ${bgSecondary} ${
-					mouseFound ? '' : 'hidden'
+					mouseFound ? '' : 'opacity-0'
 				}`}
 			>
 				<h2 className="uppercase font-bold text-xl mb-8">{pretitle}</h2>
