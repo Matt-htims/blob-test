@@ -16,6 +16,7 @@ export default function BlobCardListener({
 	const containerRef = useRef(null);
 	const [offset, setOffset] = useState({});
 	const offsetRef = useRef(offset);
+	const [mouseFound, setMouseFound] = useState(false);
 
 	const setOffsetState = (data) => {
 		offsetRef.current = data;
@@ -43,9 +44,13 @@ export default function BlobCardListener({
 					scrollPosition.current +
 					'px'
 			);
+			setTimeout(() => {
+				setMouseFound(true);
+			}, '5');
 		};
 		if (containerRef.current) {
 			handleResize();
+			// handleMouseMove();
 			pos.addEventListener('mousemove', handleMouseMove);
 			windowRef.addEventListener('resize', handleResize);
 			windowRef.addEventListener('scroll', handleMouseMove);
@@ -67,7 +72,9 @@ export default function BlobCardListener({
 			<h1 className="text-6xl mb-8">{title}</h1>
 			<p className="text-2xl">{body}</p>
 			<div
-				className={`circle${num} aria-hidden absolute top-0 left-0 right-0 bottom-0 rounded-2xl p-20 pointer-events-none duration-[350ms] ease-out ${textColorSecondary} ${bgSecondary}`}
+				className={`circle${num} aria-hidden absolute top-0 left-0 right-0 bottom-0 rounded-2xl p-20 pointer-events-none duration-[350ms] ease-out ${textColorSecondary} ${bgSecondary} ${
+					mouseFound ? '' : 'hidden'
+				}`}
 			>
 				<h2 className="uppercase font-bold text-xl mb-8">{pretitle}</h2>
 				<h1 className="text-6xl mb-8">{title}</h1>
