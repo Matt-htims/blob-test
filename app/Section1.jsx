@@ -15,26 +15,31 @@ export default function Section({
 	const containerRef = useRef(null);
 	const [offsetTop, setOffsetTop] = useState(0);
 	const [offsetLeft, setOffsetLeft] = useState(0);
+	const [offset, setOffset] = useState({});
 	const [mouseLocation, setMouseLocation] = useState({});
+	const [mouseX, setMouseX] = useState(0);
+	const [mouseY, setMouseY] = useState(0);
+	const [docRef, setDocRef] = useState();
 
 	const scrollPosition = useScrollPosition();
 
 	useEffect(() => {
-		console.log('hi');
 		const pos = window.document.documentElement;
 		const windowRef = window;
+		setDocRef(pos);
 		const handleResize = () => {
 			setOffsetTop(containerRef.current.offsetTop);
 			setOffsetLeft(containerRef.current.offsetLeft);
+			setOffset({
+				top: containerRef.current.offsetTop,
+				left: containerRef.current.offsetLeft,
+			});
 		};
 
 		const handleMouseMove = (e) => {
-			setMouseLocation({ x: e.clientX, y: e.clientY });
-			pos.style.setProperty(`--x${num}`, e.clientX - offsetLeft + 'px');
-			pos.style.setProperty(
-				`--y${num}`,
-				e.clientY - offsetTop + scrollPosition + 'px'
-			);
+			// setMouseLocation({ x: e.clientX, y: e.clientY });
+			setMouseX(e.clientX);
+			setMouseY(e.clientY);
 		};
 		if (containerRef.current) {
 			handleResize();
@@ -46,17 +51,17 @@ export default function Section({
 				windowRef.removeEventListener('resize', handleResize);
 			};
 		}
-	}, [offsetTop, offsetLeft, scrollPosition, num]);
+	}, []);
 
 	useEffect(() => {
-		const pos = window.document.documentElement;
-		// pos.style.setProperty(`--x${num}`, mouseLocation.x - offsetLeft + 'px');
-		pos.style.setProperty(
-			`--y${num}`,
-			mouseLocation.y - offsetTop + scrollPosition + 'px'
-		);
-	}, [scrollPosition]);
-
+		if (docRef) {
+			docRef.style.setProperty(`--x${num}`, mouseX - offsetLeft + 'px');
+			docRef.style.setProperty(
+				`--y${num}`,
+				mouseY - offsetTop + scrollPosition + 'px'
+			);
+		}
+	}, [mouseX, mouseY, scrollPosition, offsetLeft, offsetTop, num, docRef]);
 	return (
 		<div
 			ref={containerRef}

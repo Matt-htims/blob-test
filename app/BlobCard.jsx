@@ -1,8 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import useScrollPosition from '@/hooks/useScrollPosition';
 
-export default function Section({
+export default function BlobCard({
 	pretitle,
 	title,
 	body,
@@ -11,52 +10,49 @@ export default function Section({
 	bgMain,
 	bgSecondary,
 	num,
+	scrollPosition,
+	mousePosition,
 }) {
 	const containerRef = useRef(null);
 	const [offsetTop, setOffsetTop] = useState(0);
 	const [offsetLeft, setOffsetLeft] = useState(0);
-	const [mouseLocation, setMouseLocation] = useState({});
-
-	const scrollPosition = useScrollPosition();
+	const [offset, setOffset] = useState({});
+	const [docRef, setDocRef] = useState();
 
 	useEffect(() => {
-		console.log('hi');
 		const pos = window.document.documentElement;
 		const windowRef = window;
+		setDocRef(pos);
 		const handleResize = () => {
 			setOffsetTop(containerRef.current.offsetTop);
 			setOffsetLeft(containerRef.current.offsetLeft);
-		};
-
-		const handleMouseMove = (e) => {
-			setMouseLocation({ x: e.clientX, y: e.clientY });
-			pos.style.setProperty(`--x${num}`, e.clientX - offsetLeft + 'px');
-			pos.style.setProperty(
-				`--y${num}`,
-				e.clientY - offsetTop + scrollPosition + 'px'
-			);
+			setOffset({
+				top: containerRef.current.offsetTop,
+				left: containerRef.current.offsetLeft,
+			});
 		};
 		if (containerRef.current) {
 			handleResize();
-			pos.addEventListener('mousemove', handleMouseMove);
 			windowRef.addEventListener('resize', handleResize);
 
 			return function cleanupListener() {
-				pos.removeEventListener('mousemove', handleMouseMove);
 				windowRef.removeEventListener('resize', handleResize);
 			};
 		}
-	}, [offsetTop, offsetLeft, scrollPosition, num]);
+	}, []);
 
 	useEffect(() => {
-		const pos = window.document.documentElement;
-		// pos.style.setProperty(`--x${num}`, mouseLocation.x - offsetLeft + 'px');
-		pos.style.setProperty(
-			`--y${num}`,
-			mouseLocation.y - offsetTop + scrollPosition + 'px'
-		);
-	}, [scrollPosition]);
-
+		if (docRef) {
+			docRef.style.setProperty(
+				`--x${num}`,
+				mousePosition.x - offsetLeft + 'px'
+			);
+			docRef.style.setProperty(
+				`--y${num}`,
+				mousePosition.y - offsetTop + scrollPosition + 'px'
+			);
+		}
+	}, [mousePosition, scrollPosition, offsetLeft, offsetTop, num, docRef]);
 	return (
 		<div
 			ref={containerRef}
