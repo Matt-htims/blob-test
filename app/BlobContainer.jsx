@@ -2,7 +2,6 @@
 import useScrollPosition from '@/hooks/useScrollPosition';
 import useMousePosition from '@/hooks/useMousePosition';
 
-import BlobCard from './BlobCard';
 import BlobCardListener from './BlobCardListener';
 
 export default function BlobContainer({ data }) {

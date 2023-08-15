@@ -14,8 +14,6 @@ export default function BlobCardListener({
 	num,
 }) {
 	const containerRef = useRef(null);
-	const [offsetTop, setOffsetTop] = useState(0);
-	const [offsetLeft, setOffsetLeft] = useState(0);
 	const [offset, setOffset] = useState({});
 	const offsetRef = useRef(offset);
 
@@ -69,7 +67,7 @@ export default function BlobCardListener({
 			<h1 className="text-6xl mb-8">{title}</h1>
 			<p className="text-2xl">{body}</p>
 			<div
-				className={`circle${num} aria-hidden absolute top-0 left-0 right-0 bottom-0 rounded-2xl p-20 pointer-events-none duration-[400ms] ease-out ${textColorSecondary} ${bgSecondary}`}
+				className={`circle${num} aria-hidden absolute top-0 left-0 right-0 bottom-0 rounded-2xl p-20 pointer-events-none duration-[350ms] ease-out ${textColorSecondary} ${bgSecondary}`}
 			>
 				<h2 className="uppercase font-bold text-xl mb-8">{pretitle}</h2>
 				<h1 className="text-6xl mb-8">{title}</h1>
